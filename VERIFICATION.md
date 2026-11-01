@@ -1,0 +1,9 @@
+# Verification scope
+
+The frozen public package candidate is retained at upstream release checkpoint `f38a50bf497d6cbb1ff74457d4696e6ce84f562b`. Its original manifest records build source `989f68c6a6f7ed2a32d8374514adeae77ea7b00b`. Rebuilding the checkpoint twice reproduces that exact package SHA-256: `709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441`.
+
+Later Broker evidence is recorded at `a02378fa578d48866ce137441c72396dc7f9547f`; tested Broker runtime source is `642a2e329e015375fa94fdb02b6bcf32bb43e6fd`. It is separate from the bundled Guard package. The recorded shared-host, non-production run used distinct OS users, a Broker-only dummy credential, authenticated local IPC and real local file mutations. Credential-file access from Admission was denied; normal DENIED/UNRESOLVED paths sent no Broker requests. Restart/replay checks and a bounded application canary scan passed in that record. This session reviews those retained records; it does not rerun physical qualification.
+
+This evidence does not demonstrate a real GitHub App credential-gated write, dedicated host qualification, whole-OS leak absence, immediate revocation of every unused unexpired artifact, or protection from administrator/root compromise. Formal qualification remains partial. Private host records are intentionally not included in this distribution.
+
+Fresh validation results for this exact tarball are in `validation.json`. Reproducibility uses two clean source archives with the same installed locked build tools, not independently provisioned machines. The SBOM is the project's custom inventory format, not an SPDX/CycloneDX claim or vulnerability assessment. Secret screening is pattern-based with positive canaries and an allowlisted export; it cannot prove the absence of every secret.

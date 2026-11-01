@@ -1,0 +1,11 @@
+import {createDevelopment} from '@ground/immune-guard/development';
+import {githubScope,mapGitHubIntent} from '@ground/immune-guard/github';
+import {fingerprint} from '@ground/immune-guard';
+const target={repositoryId:42,branch:'preview-shadow',pathPrefix:'docs/preview/'};
+const changes=[{path:'docs/preview/marker.md',action:'file.create',before:null,after:'c'.repeat(40)}];
+const intent={id:'github-example',repositoryId:42,branch:target.branch,baseRevision:'a'.repeat(40),commitRevision:'b'.repeat(40),changes,mutationFingerprint:fingerprint(changes)};
+const operation=mapGitHubIntent(intent,'example-agent',target);
+const app=createDevelopment({environment:'NON_PRODUCTION',scope:githubScope(target),approvedOperations:[operation]});
+const result=await app.guard.protect(operation);
+if(result.decision!=='ADMITTED'||app.metrics.executions!==0)throw Error('SHADOW_EXAMPLE_FAILED');
+console.log(JSON.stringify({classification:'SYNTHETIC MAPPING EXAMPLE',mode:app.guard.mode,decision:result.decision,brokerCalls:app.metrics.executions,network:'NONE',credential:'NONE'}));

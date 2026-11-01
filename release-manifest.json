@@ -1,0 +1,17 @@
+{
+  "product": "GROUND IMMUNE Guard v0.1 Technical Preview",
+  "publication": false,
+  "status": "HUMAN PUBLICATION GATE \u2014 BLOCKED",
+  "upstreamReleaseCheckpoint": "f38a50bf497d6cbb1ff74457d4696e6ce84f562b",
+  "originalBuildSource": "989f68c6a6f7ed2a32d8374514adeae77ea7b00b",
+  "brokerEvidenceCommit": "a02378fa578d48866ce137441c72396dc7f9547f",
+  "brokerIncluded": false,
+  "artifact": "ground-immune-guard-0.1.0-preview.1.tgz",
+  "artifactSha256": "709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441",
+  "distribution": "PROPOSED_DOCS_AND_TARBALL",
+  "license": "UNDECIDED",
+  "securityContact": "UNASSIGNED",
+  "pilotContact": "UNASSIGNED",
+  "signing": "UNDECIDED",
+  "sourceExportIncluded": false
+}

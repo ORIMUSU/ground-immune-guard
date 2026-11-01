@@ -1,0 +1,6 @@
+node_modules/
+guard-local/
+shadow/
+blocking/
+.guard-*/
+.DS_Store

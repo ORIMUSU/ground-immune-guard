@@ -1,0 +1,113 @@
+{
+  "validationDate": "2026-11-01",
+  "scope": "Frozen package and standalone documentation candidate; no physical or production run performed",
+  "reproducibility": {
+    "status": "PASS",
+    "sourceCommit": "f38a50bf497d6cbb1ff74457d4696e6ce84f562b",
+    "version": "0.1.0-preview.1",
+    "artifact": "ground-immune-guard-0.1.0-preview.1.tgz",
+    "artifactSha256": "709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441",
+    "packedBytes": 30134,
+    "unpackedBytes": 93897,
+    "builds": 2,
+    "byteIdentical": true,
+    "sourceMethod": "Two independently extracted git archives of exact sourceCommit; shared locked build tool installation only; fresh offline npm packing. Consumers later have no workspace runtime fallback.",
+    "toolchain": {
+      "node": "v24.15.0",
+      "npm": "11.12.1",
+      "esbuild": "0.27.3",
+      "typescript": "5.9.3"
+    },
+    "sourceArchiveSha256": "52f055605aa0e2b9a8ef09352718e6482b28c460ed77ba3a8c2ba3a96f94308a"
+  },
+  "consumers": {
+    "status": "PASS",
+    "artifactSha256": "709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441",
+    "version": "0.1.0-preview.1",
+    "network": "NPM_OFFLINE",
+    "consumerRoots": "two independent fresh temporary projects",
+    "results": [
+      {
+        "language": "javascript",
+        "install": "PASS",
+        "init": "PASS",
+        "doctor": "PASS",
+        "allow": "PASS",
+        "deny": "PASS",
+        "unresolved": "PASS",
+        "explain": "PASS",
+        "verify": "PASS",
+        "restartDuplicate": "PASS",
+        "demo": "PASS",
+        "sourceFallback": false
+      },
+      {
+        "language": "typescript",
+        "install": "PASS",
+        "init": "PASS",
+        "doctor": "PASS",
+        "allow": "PASS",
+        "deny": "PASS",
+        "unresolved": "PASS",
+        "explain": "PASS",
+        "verify": "PASS",
+        "restartDuplicate": "PASS",
+        "demo": "PASS",
+        "sourceFallback": false
+      }
+    ],
+    "externalTools": "Node/npm and TypeScript compiler supplied by validation host; runtime and declarations resolved solely from installed artifact"
+  },
+  "networkDeniedConsumers": {
+    "status": "PASS",
+    "artifactSha256": "709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441",
+    "version": "0.1.0-preview.1",
+    "network": "OS_DENIED_WITH_EPERM_CANARY",
+    "consumerRoots": "two independent fresh temporary projects",
+    "results": [
+      {
+        "language": "javascript",
+        "install": "PASS",
+        "init": "PASS",
+        "doctor": "PASS",
+        "allow": "PASS",
+        "deny": "PASS",
+        "unresolved": "PASS",
+        "explain": "PASS",
+        "verify": "PASS",
+        "restartDuplicate": "PASS",
+        "demo": "PASS",
+        "sourceFallback": false
+      },
+      {
+        "language": "typescript",
+        "install": "PASS",
+        "init": "PASS",
+        "doctor": "PASS",
+        "allow": "PASS",
+        "deny": "PASS",
+        "unresolved": "PASS",
+        "explain": "PASS",
+        "verify": "PASS",
+        "restartDuplicate": "PASS",
+        "demo": "PASS",
+        "sourceFallback": false
+      }
+    ],
+    "externalTools": "Node/npm and TypeScript compiler supplied by validation host; runtime and declarations resolved solely from installed artifact"
+  },
+  "focusedTests": {
+    "passed": 34,
+    "failed": 0,
+    "scope": "Guard *.test.mjs and release.test.mjs",
+    "initialFailure": "Legacy compatibility build prerequisite absent; generated in isolated checkout, then all 34 passed"
+  },
+  "exposure": {
+    "packageExtracted": true,
+    "positiveCanary": true,
+    "patternFindings": 0,
+    "scope": "Allowlisted docs and tarball; package archive extracted and scanned"
+  },
+  "fullHistoricalSuiteRerun": false,
+  "physicalQualificationRerun": false
+}

@@ -1,9 +1,14 @@
 # Product licensing and distribution state
 
-**Product license / commercial terms: UNDECIDED. PUBLIC RELEASE BLOCKED.**
+**Technical Preview license: RESOLVED — PolyForm Free Trial License 1.0.0.**
 
-No license for public redistribution of GROUND IMMUNE Guard is granted by this candidate preparation. `UNLICENSED` package metadata and `private: true` are safeguards pending a human rights/terms decision, not selection of a final business model or legal opinion. Do not publish this candidate with that decision unresolved.
+GROUND IMMUNE Guard v0.1 Technical Preview is offered by 株式会社オリムス (ORIMUSU) for time-limited evaluation under the terms referenced in [LICENSE.md](LICENSE.md). The grant is bound to the frozen preview artifact identified by its SHA-256 digest and to the ORIMUSU-authored repository materials distributed with this preview, except where separate notices apply.
 
-No top-level product license has been identified as an approved Guard public license. Third-party tools do not grant rights to the product's own code. The SBOM records detectable third-party licenses; notices retain their original terms separately. Build tools esbuild (MIT) and TypeScript (Apache-2.0) are not shipped as dependencies. esbuild-generated helper attribution is retained conservatively in THIRD-PARTY-NOTICES.txt. Node/npm are supplied separately by the consumer under their distributions' terms.
+This is not an Open Source release. The preview license is intended for evaluation, not production deployment or redistribution. Production use, redistribution, extended evaluation and commercial deployment require separate permission from ORIMUSU.
 
-Before release, the owner must approve the applicable source/package/commercial terms, any redistribution obligations, the distribution route and final notice contents. Updating those decisions produces a new reviewed artifact digest. A technical inventory does not resolve ownership or legal interpretation.
+The frozen tarball retains earlier defensive package metadata (`private: true` / `UNLICENSED`). That metadata remains useful to prevent accidental registry publication, but the explicit license grant in LICENSE.md governs the identified Technical Preview artifact distributed by ORIMUSU. npm registry publication is not authorized for this preview.
+
+Third-party tools and components retain their own terms. The SBOM records detectable third-party licenses; notices are preserved separately in THIRD-PARTY-NOTICES.txt.
+
+Commercial and pilot inquiries: **immune@orimusu.com**  
+Security reports: **security@orimusu.com**

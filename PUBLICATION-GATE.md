@@ -1,22 +1,23 @@
-# Human Publication Gate — GITHUB RELEASE REQUIRED
+# Human Publication Gate — PRODUCT HUNT DRAFT REQUIRED
 
-The repository `ORIMUSU/ground-immune-guard` is now public. No GitHub Release, npm publication or Product Hunt launch has occurred yet. GROUND Core production remains separately blocked.
+The repository `ORIMUSU/ground-immune-guard` is public and GitHub prerelease `v0.1.0-preview.1` is published and verified. npm publication and Product Hunt launch have not occurred. GROUND Core production remains separately blocked.
 
-Resolved Technical Preview decisions:
+Verified release state:
 
 - Repository: **PUBLIC** — `ORIMUSU/ground-immune-guard`.
-- Security reporting: **RESOLVED** — monitored inbound contact `security@orimusu.com`.
-- Shadow Pilot CTA: **RESOLVED** — monitored inbound contact `immune@orimusu.com`.
-- License: **RESOLVED** — PolyForm Free Trial License 1.0.0; see LICENSE.md.
-- Distribution: **RESOLVED** — public GitHub repository plus GitHub Release containing the frozen tarball. No npm registry publication for this preview.
-- Signing: **RESOLVED FOR PREVIEW** — SHA-256 checksums plus SBOM. The release must explicitly state that it is not cryptographically signed or attested.
-- Qualification route: **RESOLVED FOR TECHNICAL PREVIEW / SHADOW ONLY** — this does not qualify production enforcement, a dedicated Broker host, or GROUND Core production.
+- GitHub prerelease: **PUBLISHED** — `v0.1.0-preview.1`.
+- Release artifact: **VERIFIED** — `ground-immune-guard-0.1.0-preview.1.tgz`, 30,134 bytes.
+- Artifact SHA-256: **VERIFIED** — `709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441`.
+- Security reporting: **RESOLVED** — `security@orimusu.com`.
+- Shadow Pilot CTA: **RESOLVED** — `immune@orimusu.com`.
+- License: **RESOLVED** — PolyForm Free Trial License 1.0.0.
+- Distribution: **RESOLVED** — public GitHub repository plus GitHub prerelease tarball. No npm registry publication.
+- Signing: **RESOLVED FOR PREVIEW** — SHA-256 plus SBOM; not cryptographically signed or attested.
+- Qualification route: **TECHNICAL PREVIEW / SHADOW ONLY** — no production qualification is implied.
 
-Remaining release gate:
+Remaining launch gate:
 
-- Create the GitHub prerelease `v0.1.0-preview.1` from the exact public repository HEAD after this documentation update.
-- Attach the frozen tarball whose SHA-256 is `709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441`.
-- Verify the published release notes, artifact digest, manifest and checksums from the public repository.
-- Product Hunt publication remains a separate action after GitHub Release verification.
+- Prepare the Product Hunt draft with the verified public GitHub URL, launch copy, media and maker comment.
+- Stop before scheduling or publishing Product Hunt until final human review.
 
-Any package-byte change requires fresh artifact validation. Any public-text change requires refreshed integrity/exposure review and checksums. This repository contains no automatic publishing workflow.
+Any package-byte change requires fresh artifact validation. Any public-text change requires refreshed integrity/exposure review and checksums.

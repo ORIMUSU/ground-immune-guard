@@ -36,13 +36,13 @@ The package includes intent evaluation, scope binding, local evidence, a local C
 
 Read [Security Model](SECURITY-MODEL.md), [Threat Model](THREAT-MODEL.md), [Limitations](LIMITATIONS.md) and [Data Handling](PRIVACY.md). [API](API.md) is a preview freeze candidate, not a promise of permanent compatibility.
 
-Security contact: **UNASSIGNED — publication blocked**; see [reporting policy](SECURITY.md). Product license/terms and distribution approval are pending; see [license state](LICENSE-STATE.md). Do not redistribute this unpublished candidate.
+Security reports: **security@orimusu.com**; see [reporting policy](SECURITY.md). Product license/terms and public distribution approval are still pending; see [license state](LICENSE-STATE.md). Do not redistribute this unpublished candidate.
 
-**Request a Shadow Pilot** — contact destination pending human approval. Start with one narrowly scoped operation and measure setup friction, decisions and latency before considering enforcement.
+**Request a Shadow Pilot** — email **immune@orimusu.com**. Start with one narrowly scoped operation and measure setup friction, decisions and latency before considering enforcement.
 
 ## Candidate distribution
 
-This standalone repository candidate contains reviewed documentation, examples and the frozen installable tarball. It has no upstream repository history, Core production source, private host evidence or deployment credentials. The proposed repository name is `ground-immune-guard`; the owner and distribution route remain human decisions. This is a package-and-documentation distribution candidate, not a complete source distribution.
+This standalone repository candidate contains reviewed documentation, examples and the frozen installable tarball. It has no upstream repository history, Core production source, private host evidence or deployment credentials. The private staging repository is `ORIMUSU/ground-immune-guard`; public visibility and distribution remain human-gated. This is a package-and-documentation distribution candidate, not a complete source distribution.
 
 See [Verification](VERIFICATION.md), [Architecture](ARCHITECTURE.md), [Publication gate](PUBLICATION-GATE.md), `release-manifest.json`, `SHA256SUMS` and `sbom.json`. The tarball retains its frozen documentation; this repository adds the later qualification context without changing those package bytes.
 

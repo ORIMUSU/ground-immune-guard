@@ -1,8 +1,8 @@
 # GROUND IMMUNE Guard v0.1 — Technical Preview
 
-**Keep write credentials away from AI agents.**
+**Separate AI intent from execution authority.**
 
-Guard evaluates an agent's operation intent before a credential-holding Broker executes it. The goal is a small authorization boundary for automation that needs to write to another system. The Agent must not own the write credential or configure its own authority.
+AI agents should not hold your write authority. Guard evaluates an agent's operation intent before a credential-holding Broker executes it. The Agent must not own the write credential or configure its own authority.
 
 ```text
 AI Agent / Automation → operation intent → Guard
@@ -16,7 +16,7 @@ This diagram describes explicitly enabled enforcement. **SHADOW is the default**
 
 ## Install and first operation
 
-Requires externally supplied Node.js 22 or later and npm. This is an unpublished candidate; the following local tarball command works after receiving the approved bundle. It is not a registry availability claim.
+Requires externally supplied Node.js 22 or later and npm. This Technical Preview is distributed as a frozen tarball through the approved GitHub release path; it is not an npm registry availability claim.
 
 ```sh
 npm install --offline --ignore-scripts ./ground-immune-guard-0.1.0-preview.1.tgz
@@ -36,14 +36,22 @@ The package includes intent evaluation, scope binding, local evidence, a local C
 
 Read [Security Model](SECURITY-MODEL.md), [Threat Model](THREAT-MODEL.md), [Limitations](LIMITATIONS.md) and [Data Handling](PRIVACY.md). [API](API.md) is a preview freeze candidate, not a promise of permanent compatibility.
 
-Security reports: **security@orimusu.com**; see [reporting policy](SECURITY.md). Product license/terms and public distribution approval are still pending; see [license state](LICENSE-STATE.md). Do not redistribute this unpublished candidate.
+Security reports: **security@orimusu.com**; see [reporting policy](SECURITY.md).
 
 **Request a Shadow Pilot** — email **immune@orimusu.com**. Start with one narrowly scoped operation and measure setup friction, decisions and latency before considering enforcement.
 
+## License and distribution
+
+This Technical Preview is licensed under the **PolyForm Free Trial License 1.0.0**; see [LICENSE.md](LICENSE.md). It is a time-limited evaluation release, not an Open Source release and not a production certification. Production use, redistribution, extended evaluation or commercial deployment require separate permission from ORIMUSU.
+
+The approved preview distribution route is the public GitHub repository plus a GitHub Release containing the frozen tarball. npm registry publication is not part of this preview. Integrity is published through `SHA256SUMS` and `sbom.json`; the preview is **not cryptographically signed or attested**.
+
 ## Candidate distribution
 
-This standalone repository candidate contains reviewed documentation, examples and the frozen installable tarball. It has no upstream repository history, Core production source, private host evidence or deployment credentials. The private staging repository is `ORIMUSU/ground-immune-guard`; public visibility and distribution remain human-gated. This is a package-and-documentation distribution candidate, not a complete source distribution.
+This standalone repository contains reviewed documentation, examples and the frozen installable tarball. It has no upstream repository history, Core production source, private host evidence or deployment credentials. This is a package-and-documentation Technical Preview, not a complete source distribution.
 
-See [Verification](VERIFICATION.md), [Architecture](ARCHITECTURE.md), [Publication gate](PUBLICATION-GATE.md), `release-manifest.json`, `SHA256SUMS` and `sbom.json`. The tarball retains its frozen documentation; this repository adds the later qualification context without changing those package bytes.
+See [Verification](VERIFICATION.md), [Architecture](ARCHITECTURE.md), [Publication gate](PUBLICATION-GATE.md), `release-manifest.json`, `SHA256SUMS` and `sbom.json`.
 
 [Advanced capabilities](ADVANCED.md) are separate from the default Guard preview.
+
+Developed by **ORIMUSU**.

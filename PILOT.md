@@ -1,6 +1,6 @@
 # Request a Shadow Pilot
 
-One action: request a scoped Shadow pilot. Contact destination is UNASSIGNED and must be approved before publication; this document does not submit or transmit anything.
+One action: request a scoped Shadow pilot by emailing **immune@orimusu.com**. The address has been verified for inbound delivery; this document does not itself submit or transmit anything.
 
 Best fit: teams with AI Agent GitHub writes or internal automation, one initial operation with a narrow rollbackable scope, and a human owner. After review, one to three operations can be considered. Criticality must be disclosed; first observation should avoid production-critical targets.
 

@@ -1,0 +1,15 @@
+node_modules/
+guard-local/
+shadow/
+blocking/
+.guard-*/
+.DS_Store
+package.json
+package-lock.json
+guard-try/
+.build/
+*.tgz
+
+# local secrets / editor
+.env
+*.pem

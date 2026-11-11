@@ -1,0 +1,57 @@
+{
+  "validationDate": "2026-11-10",
+  "validatedBy": "maintainer",
+  "artifact": "ground-immune-guard-0.1.0-preview.2.tgz",
+  "artifactSha256": "7b8b6bb7a2409e12cf2d7396089e059f728bd4b94a9dd5186aafef4f1d8bb99d",
+  "scope": "Consumer quickstart only. No physical, real-credential, GitHub or production run. No rebuild from the original source (not included in this repository).",
+  "environments": [
+    {
+      "os": "Linux x86_64",
+      "node": "v22.23.4",
+      "npm": "10.9.9"
+    },
+    {
+      "os": "Linux x86_64",
+      "node": "v24.22.1",
+      "npm": "11.21.1"
+    }
+  ],
+  "consumers": {
+    "script": "packaging/verify-quickstart.sh",
+    "layouts": [
+      "fresh directory",
+      "directory under a parent that already has node_modules/",
+      "existing project (package.json + node_modules/)"
+    ],
+    "result": "PASS on both Node versions and both layouts",
+    "checks": [
+      "init/doctor",
+      "ADMITTED executes once (exit 0)",
+      "replay UNRESOLVED/DECISION_REUSED (exit 4)",
+      "DENIED/OUT_OF_SCOPE (exit 3)",
+      "UNRESOLVED/EVIDENCE_MISSING (exit 4)",
+      "status UNRESOLVED after sequence",
+      "verify count 5",
+      "SHADOW OBSERVED, 0 executions, exit 0 for all verdicts; --fail-on-verdict gives 3/4",
+      "missing config exit 2",
+      "examples/first-operation.mjs",
+      "examples/github-shadow.mjs",
+      "install stays in the local directory"
+    ]
+  },
+  "existingProject": "npm install from an existing project root with a pre-populated node_modules: PASS on both Node versions (npm prunes undeclared extraneous packages, standard npm behaviour)",
+  "typescript": "tsc 5.9.3 --strict --module NodeNext --target ES2022 on examples/first-operation.mts: PASS on both Node versions; emitted .mjs runs",
+  "control": "preview.1 under the same script fails exactly the 8 exit-code checks and passes all others",
+  "notTested": [
+    "macOS / Windows",
+    "npx guard form",
+    "download via the GitHub release URL (the release was published after this run; see postReleaseCheck)",
+    "Node < 22.23"
+  ],
+  "postReleaseCheck": {
+    "date": "2026-11-10",
+    "check": "artifact downloaded from the GitHub release URL; SHA-256 equals artifactSha256",
+    "result": "PASS"
+  },
+  "shadowExitCodes": "SHADOW exits 0 for every verdict unless --fail-on-verdict"
+}

@@ -1,0 +1,25 @@
+--- a/dist/cli.js
++++ b/dist/cli.js
+@@ -14,7 +14,8 @@
+ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+ import { join, resolve } from "node:path";
+ var EXIT_BY_DECISION = { ADMITTED: 0, DENIED: 3, UNRESOLVED: 4 };
+-var [command, location = "guard-local", scenario = "allowed"] = process.argv.slice(2);
++var failOnVerdict = process.argv.includes("--fail-on-verdict");
++var [command, location = "guard-local", scenario = "allowed"] = process.argv.slice(2).filter((a) => a !== "--fail-on-verdict");
+ var root = resolve(location);
+ var file = join(root, "config.json");
+ try {
+@@ -44,10 +45,10 @@
+       if (scenario === "unresolved") op.id = "unreviewed";
+       const result = await app.guard.protect(op);
+       console.log(JSON.stringify({ environment: app.environment, result, simulatedExecutions: app.metrics.executions }));
+-      process.exitCode = EXIT_BY_DECISION[result.decision] ?? 4;
++      process.exitCode = result.mode === "SHADOW" && !failOnVerdict ? 0 : EXIT_BY_DECISION[result.decision] ?? 4;
+     }
+   } else {
+-    console.log("guard init|doctor|status|protect|explain|verify <directory> [allowed|denied|unresolved|--limited]\nguard --version\nprotect exit codes: 0 ADMITTED, 3 DENIED, 4 UNRESOLVED, 2 usage/configuration/evidence error.\nNON_PRODUCTION local fixture only. No credential input.");
++    console.log("guard init|doctor|status|protect|explain|verify <directory> [allowed|denied|unresolved|--limited]\nguard --version\nprotect exit codes: 0 ADMITTED, 3 DENIED, 4 UNRESOLVED, 2 usage/configuration/evidence error.\nSHADOW exits 0 for every verdict unless --fail-on-verdict is given (errors still exit 2).\nNON_PRODUCTION local fixture only. No credential input.");
+     if (command) process.exitCode = 2;
+   }
+ } catch {

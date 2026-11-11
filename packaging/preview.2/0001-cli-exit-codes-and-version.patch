@@ -1,0 +1,33 @@
+--- a/dist/cli.js
++++ b/dist/cli.js
+@@ -13,11 +13,14 @@
+ // product/guard/cli.ts
+ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+ import { join, resolve } from "node:path";
++var EXIT_BY_DECISION = { ADMITTED: 0, DENIED: 3, UNRESOLVED: 4 };
+ var [command, location = "guard-local", scenario = "allowed"] = process.argv.slice(2);
+ var root = resolve(location);
+ var file = join(root, "config.json");
+ try {
+-  if (command === "init") {
++  if (command === "--version" || command === "version") {
++    console.log(JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")).version);
++  } else if (command === "init") {
+     mkdirSync(root, { recursive: true, mode: 448 });
+     const op = sampleOperation();
+     writeFileSync(file, JSON.stringify({ environment: "NON_PRODUCTION", mode: scenario === "--limited" ? "LIMITED_BLOCKING" : "SHADOW", enableBlocking: scenario === "--limited", scope: { action: op.action, resource: op.resource, scope: op.scope }, approvedOperations: [op] }, null, 2) + "\n", { flag: "wx", mode: 384 });
+@@ -39,10 +42,12 @@
+         op.scope = "outside";
+       }
+       if (scenario === "unresolved") op.id = "unreviewed";
+-      console.log(JSON.stringify({ environment: app.environment, result: await app.guard.protect(op), simulatedExecutions: app.metrics.executions }));
++      const result = await app.guard.protect(op);
++      console.log(JSON.stringify({ environment: app.environment, result, simulatedExecutions: app.metrics.executions }));
++      process.exitCode = EXIT_BY_DECISION[result.decision] ?? 4;
+     }
+   } else {
+-    console.log("guard init|doctor|status|protect|explain|verify <directory> [allowed|denied|unresolved|--limited]\nNON_PRODUCTION local fixture only. No credential input.");
++    console.log("guard init|doctor|status|protect|explain|verify <directory> [allowed|denied|unresolved|--limited]\nguard --version\nprotect exit codes: 0 ADMITTED, 3 DENIED, 4 UNRESOLVED, 2 usage/configuration/evidence error.\nNON_PRODUCTION local fixture only. No credential input.");
+     if (command) process.exitCode = 2;
+   }
+ } catch {

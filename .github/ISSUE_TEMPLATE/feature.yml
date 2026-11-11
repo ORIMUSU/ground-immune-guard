@@ -1,0 +1,32 @@
+name: Feature idea
+description: Suggest an improvement to the preview, the docs, or the examples.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a Technical Preview. Ideas are welcome; they are not a commitment to build the feature.
+
+        Full IMMUNE (Recovery, Governance, Adaptive layers), a dedicated Broker host, and real credential isolation are not in this repository. Please say if your idea depends on any of those.
+
+        **Never paste tokens, passwords, private keys, or credentials.**
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this address?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope check
+      description: Can this be done with the public API, docs, or examples in this repository? If not, what is missing?
+    validations:
+      required: false

@@ -1,0 +1,48 @@
+name: Try-out feedback
+description: Tell us what happened when you ran the Technical Preview.
+title: "[feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for first-try notes, confusion, and small surprises.
+
+        **Never paste tokens, passwords, private keys, credentials, raw environment dumps, or private source.** If you found a security issue, do not use this form; see SECURITY.md and report privately to security@orimusu.com.
+  - type: input
+    id: version
+    attributes:
+      label: Package version and SHA-256 (if you installed the tarball)
+      placeholder: 0.1.0-preview.3, sha256…
+    validations:
+      required: false
+  - type: dropdown
+    id: path
+    attributes:
+      label: What did you try?
+      options:
+        - README / CLI quickstart
+        - JavaScript or TypeScript example
+        - Post-admission substitution example
+        - Documentation only
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: went
+    attributes:
+      label: What went well?
+    validations:
+      required: false
+  - type: textarea
+    id: stuck
+    attributes:
+      label: What was confusing or did not work?
+    validations:
+      required: true
+  - type: textarea
+    id: else
+    attributes:
+      label: Anything else?
+    validations:
+      required: false

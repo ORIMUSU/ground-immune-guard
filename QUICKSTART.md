@@ -1,15 +1,15 @@
 # First operation: JavaScript and TypeScript
 
-Use a **new, empty directory** with Node.js >=22 and npm. Download `ground-immune-guard-0.1.0-preview.3.tgz` from the GitHub release at `https://github.com/ORIMUSU/ground-immune-guard` (tag `v0.1.0-preview.3`, once published) and check its SHA-256 against `SHA256SUMS`. There is no registry download or real credential setup in this guide.
+Use a **new, empty directory** with Node.js >=22 and npm. Download `ground-immune-guard-0.1.0-preview.4.tgz` from the GitHub release at `https://github.com/ORIMUSU/ground-immune-guard/releases/tag/v0.1.0-preview.4` and check its SHA-256 (`6bdc758c1059b2e530393e9f9a61706bbb097410ab88afb80adde55668e88168`, also in `SHA256SUMS`). There is no registry download or real credential setup in this guide.
 
-Until preview.3 is published, the last frozen runtime is `0.1.0-preview.2` (SHA-256 `7b8b6bb7a2409e12cf2d7396089e059f728bd4b94a9dd5186aafef4f1d8bb99d`). That tarball still embeds the earlier PolyForm Free Trial license text.
+On Windows, use preview.4 or later (preview.3 returns `GUARD_UNAVAILABLE` for every `protect` there) and run `.\node_modules\.bin\guard.cmd` in place of `./node_modules/.bin/guard`. Set `GUARD_DEBUG=1` to print the underlying error of an unexpected failure to stderr.
 
 `npm init -y` is required: without a `package.json` in the current directory, npm installs into the nearest parent directory that has a `package.json` or `node_modules`, and `./node_modules/.bin/guard` is then missing. To use an existing project instead, run `npm install` from that project's root.
 
 ```sh
 mkdir guard-quickstart && cd guard-quickstart
 npm init -y
-npm install --offline --ignore-scripts /path/to/ground-immune-guard-0.1.0-preview.3.tgz
+npm install --offline --ignore-scripts /path/to/ground-immune-guard-0.1.0-preview.4.tgz
 ./node_modules/.bin/guard init ./shadow
 ./node_modules/.bin/guard doctor ./shadow
 ./node_modules/.bin/guard protect ./shadow allowed

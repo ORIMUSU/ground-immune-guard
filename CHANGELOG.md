@@ -1,17 +1,25 @@
 # Changelog
 
-## Unreleased — 0.1.0-preview.3 (planned)
+## 0.1.0-preview.4 — 2026-11-12 (Technical Preview, GitHub prerelease)
 
-This repository is being prepared as a clean, Apache-2.0 public tree. The installable preview.3 tarball is **not produced in this tree**; it is a separate packaging task. Until preview.3 exists, do not treat the commands in the README as a published download.
+Tarball `ground-immune-guard-0.1.0-preview.4.tgz`, SHA-256 `6bdc758c1059b2e530393e9f9a61706bbb097410ab88afb80adde55668e88168`. Apache-2.0. **Anyone using Guard on Windows should upgrade from preview.3.**
 
-Intended repository changes (this tree):
+- Windows: fix `guard protect` returning `UNRESOLVED` / `GUARD_UNAVAILABLE` (exit 4) for every operation. After the atomic rename of an evidence record, the file evidence store flushed the evidence directory by opening it and calling `fsync`. Windows cannot flush a directory handle (`EPERM`, or `EISDIR` on open), so every `protect` against a file store failed after the ADMISSION record had already been written; the simulated Broker never ran. On `win32` the directory flush is now skipped when it fails with `EISDIR`/`EPERM`/`EACCES`/`EINVAL`; the rename remains the commit point. Other platforms are unchanged and still fail closed on any directory-flush error. Evidence written by preview.3 on Windows still verifies but holds ADMISSION records without DISPATCH/RESULT; start a fresh `guard init` directory.
+- CLI: `GUARD_DEBUG=1` writes the underlying evidence-store or CLI error (`code`, `syscall`, redacted message) to stderr as a `guard debug:` line. Paths are redacted. stdout, verdicts and exit codes are unchanged; without the variable nothing extra is printed.
+- Regression test: `packaging/test-windows-evidence.mjs` (in the tarball) simulates the Windows directory-handle errors, checks the README sequence (exit codes 0/4/3/4, `verify` `count: 5`, SHADOW `OBSERVED`) and checks that non-Windows platforms still fail closed.
+- Verified with these exact tarball bytes on Linux x86_64 (Node 22.23.4 and 24.22.1), Windows 11 (Node 24.14.0) and macOS 26.6.2 on Apple Silicon (Node 24.15.0): SHA-256 match, `guard --version` 0.1.0-preview.4, README CLI exits 0/4/3/4, `verify` count 5, SHADOW `OBSERVED`, regression test all checks passed, both examples matched. See `validation-preview.4.json`.
+- Public API, decisions, other platforms' behaviour and examples are otherwise unchanged from preview.3.
+- Known cosmetic leftovers inside the tarball (not runtime): the bundled terminal GIF and architecture badge still show preview.3, and the bundled `CHANGELOG.md` / `RELEASE-NOTES.md` / `README.md` were frozen before publication and describe this version as a local candidate. The repository copies of the GIF and diagram show preview.4.
 
-- License for repository materials: Apache License 2.0 (see LICENSE and NOTICE).
-- Community files: CONTRIBUTING.md (Discussions/Issues first, DCO), CODE_OF_CONDUCT.md, SECURITY.md, issue and pull-request templates, ROADMAP.md.
-- Documentation: "What this is / is not", Apache-2.0 wording, and a local example of post-admission substitution (`examples/tamper-after-approval.mjs`) that exercises preview Broker binding.
-- History: a new public git history. Author and committer use a GitHub noreply address.
+## 0.1.0-preview.3 — 2026-11-11 (Technical Preview, GitHub prerelease)
 
-The last frozen runtime remains 0.1.0-preview.2 (SHA-256 `7b8b6bb7a2409e12cf2d7396089e059f728bd4b94a9dd5186aafef4f1d8bb99d`). That tarball still embeds the PolyForm Free Trial 1.0.0 text. preview.3 should record whether its `dist/` bytes are identical to preview.2 except for documented packaging changes.
+Tarball `ground-immune-guard-0.1.0-preview.3.tgz`, SHA-256 `8b8e0ce3a546f623be88e69d857402d4c7cc2e68596b51cffd58e021c975067d`. **Known issue:** on Windows every `guard protect` returns `UNRESOLVED` / `GUARD_UNAVAILABLE`; use 0.1.0-preview.4.
+
+- License: Apache-2.0 (copyright ORIMUSU Inc.) with NOTICE. preview.1 and preview.2 artifacts stay under the PolyForm Free Trial terms they shipped with.
+- The tarball includes the TypeScript source of the Guard public surface and the admission kernel; `npm run build` reproduces `dist/`. `dist/` is not byte-identical to preview.2 (comment and license-banner changes); the public API and example/quickstart behaviour are unchanged.
+- New example `examples/tamper-after-approval.mjs`: a post-admission substitution yields `UNRESOLVED` / `TARGET_CHANGED` and does not execute (LIMITED_BLOCKING only).
+- Breaking, kernel evidence protocol: the compatibility token changed; envelopes created with the preview.2 token return `UNSUPPORTED_PROTOCOL`. Guard `guard-v0.1` journals are unaffected.
+- Repository: new public git history (author and committer use a GitHub noreply address), community files, Apache-2.0 docs.
 
 ## 0.1.0-preview.2 — 2026-11-10 (Technical Preview, GitHub prerelease)
 

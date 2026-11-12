@@ -2,10 +2,12 @@
   "format": "ground-guard-sbom-v1",
   "product": {
     "name": "@ground/immune-guard",
-    "version": "0.1.0-preview.2",
-    "license": "LicenseRef-PolyForm-Free-Trial-1.0.0",
+    "version": "0.1.0-preview.4",
+    "license": "Apache-2.0",
     "licenseDecision": "RESOLVED",
-    "licenseFile": "LICENSE"
+    "licenseFile": "LICENSE",
+    "noticeFile": "NOTICE",
+    "copyright": "Copyright 2026 ORIMUSU Inc."
   },
   "runtime": {
     "direct": [],
@@ -401,6 +403,26 @@
       "relationship": "direct",
       "os": null,
       "cpu": null
+    },
+    {
+      "name": "@types/node",
+      "version": "22.19.20",
+      "license": "MIT",
+      "integrity": "sha512-6tELRwSDYWW9EdZhbeZmYGZ1/7Djkt+Ah3/ScEYT9cDord7UJzasR/4D3VONg9tQI5CDp+/CZC1AXj2pCFOvpw==",
+      "scope": "BUILD_ONLY_NOT_SHIPPED",
+      "relationship": "direct",
+      "os": null,
+      "cpu": null
+    },
+    {
+      "name": "undici-types",
+      "version": "6.21.0",
+      "license": "MIT",
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==",
+      "scope": "BUILD_ONLY_NOT_SHIPPED",
+      "relationship": "transitive",
+      "os": null,
+      "cpu": null
     }
   ],
   "generatedHelpers": {
@@ -408,11 +430,12 @@
     "license": "MIT",
     "notice": "THIRD-PARTY-NOTICES.txt"
   },
-  "method": "Resolved esbuild outputs with positive emitted byte contribution + locked direct/optional-transitive build tools. No unrelated application dependencies are shipped.",
-  "limitations": "Build toolchain inventory covers esbuild/TypeScript and esbuild platform packages; external Node/npm/OS are not redistributed. This inventory is not a vulnerability assessment.",
+  "method": "Resolved esbuild outputs from the published source tree (scripts/build.mjs) with pinned esbuild 0.27.3 and TypeScript 5.9.3. Source for Guard + admission kernel is shipped. No unrelated application dependencies are shipped.",
+  "limitations": "Build toolchain inventory covers esbuild/TypeScript, esbuild platform packages, and typings. External Node/npm/OS are not redistributed. This inventory is not a vulnerability assessment.",
   "derivation": {
-    "from": "ground-immune-guard-0.1.0-preview.1.tgz",
-    "fromSha256": "709691519c8cf91743188eaa2a65b0978c36df3fc02e7e8d4a961603cf9fc441",
-    "method": "preview.1 dist/ unchanged except reviewed patches in packaging/preview.2/; docs, LICENSE and package.json metadata replaced; repacked with npm pack. No new build-tool run, no new runtime dependency."
-  }
+    "from": "published Guard + admission kernel source in this tree (fixed GitHub delegation removed from the credential-broker contract; preview.2 CLI patches applied)",
+    "preview2TarballSha256": "7b8b6bb7a2409e12cf2d7396089e059f728bd4b94a9dd5186aafef4f1d8bb99d",
+    "method": "Fresh esbuild/tsc build from the source in this repository. dist/ is not byte-identical to 0.1.0-preview.2: esbuild source-path comments are stripped and a one-line Apache-2.0 banner is prepended. Public Guard API behavior is unchanged. The kernel evidence-envelope digest (`digest(protocolTransition)`) changed because `protocolTransition.evidence` was rewritten in neutral wording; this is a deliberate preview.3 behaviour note. License, docs and source files are new. The published legacyEvidenceFormats catalog was later reduced to the fact formats this preview writes and reads; digest(protocolTransition) is unchanged by that reduction. Public scripts/allowlist.json holds only the permitted-import allowlist; pre-publication path denials are supplied externally and are not part of this package. The README opening tagline was later aligned to \"Agent operations get a verdict, never a silent allow\"; credential-isolation lead-in wording was removed from that README opening. dist/ is unchanged by that documentation change. docs/assets/architecture.png was later redrawn so the headline and box copy no longer claim credential isolation; the badge is v0.1.0-preview.3 and the footer is Apache-2.0. dist/ is unchanged by that asset and documentation change. docs/assets/guard-limited.gif was later re-recorded from a real CLI run of this preview.3 tarball so the window title and guard --version show v0.1.0-preview.3. dist/ is unchanged by that asset change. 0.1.0-preview.4 changes only the file evidence store (directory flush after rename is skipped on Windows, where a directory handle cannot be flushed) and adds an opt-in GUARD_DEBUG=1 stderr diagnostic to the CLI; Linux behaviour is unchanged."
+  },
+  "sourceIncluded": true
 }

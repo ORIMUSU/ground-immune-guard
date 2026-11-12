@@ -18,7 +18,7 @@ Guard checks an agent's proposed operation against an explicit scope and require
 
 In explicitly enabled Limited Blocking, only an **ADMITTED** operation is handed to a separate **Broker**. The agent must not own the write credential or configure its own authority. This preview ships a *simulated* Broker, so it does not demonstrate physical credential isolation.
 
-![Agent sends intent to Guard; only the Broker holds the credential](docs/assets/architecture.png)
+![Agent sends an operation intent to Guard; ADMITTED operations go to the Broker (simulated in this preview)](docs/assets/architecture.png)
 
 ```text
 AI Agent / Automation → operation intent → Guard
@@ -44,7 +44,7 @@ The diagram shows explicitly enabled enforcement. In the default **SHADOW** mode
 - Not a dedicated Broker host, not a credential-provisioning service, and not a real GitHub write executor. No real credentials are used.
 - Not a claim of physical or OS-level credential isolation. In-process binding is not process or OS isolation.
 - **Full IMMUNE is not in this repository.** Recovery, Governance and Adaptive layers of the broader unpublished system are not included, not activated by this preview, and not implied by installing the package.
-- This repository is documentation, examples, packaging scripts and release records. The installable package ships a readable ESM build in `dist/`. The original TypeScript sources used to produce that build are not in this repository.
+- This repository is documentation, examples, packaging scripts and release records. The installable package (release tarball) ships a readable ESM build in `dist/` together with the TypeScript sources of the Guard surface and admission kernel used to build it; those sources are not in this git repository.
 
 > **Technical Preview — read before use.** For local evaluation only. Ships a *simulated* Broker: no Broker host, no real credentials, no real GitHub write executor; not production-qualified. See [Limitations](docs/LIMITATIONS.md).
 
@@ -52,18 +52,20 @@ The diagram shows explicitly enabled enforcement. In the default **SHADOW** mode
 
 ## Try it (no account, no credential, no network after download)
 
-Requires Node.js 22 or later and npm (tested on Node 22.23.4 / npm 10.9.9 and Node 24.22.1 / npm 11.21.1, Linux). Run it in a **new, empty directory**.
+Requires Node.js 22 or later and npm. Verified on Linux (Node 22.23.4 / npm 10.9.9 and Node 24.22.1 / npm 11.21.1), Windows 11 (Node 24.14.0) and macOS (Apple Silicon, macOS 26.6.2, Node 24.15.0 / npm 11.12.1). Run it in a **new, empty directory**.
 
-The commands below are for the forthcoming **0.1.0-preview.3** package (same runtime intent as preview.2, with this repository's Apache-2.0 docs and license). Replace the placeholders before publication.
+The current package is **0.1.0-preview.4** (GitHub prerelease `v0.1.0-preview.4`). If you are on Windows and installed preview.3, upgrade: preview.3 returns `UNRESOLVED` / `GUARD_UNAVAILABLE` for every `guard protect` there (see [Changelog](CHANGELOG.md)).
 
 ```sh
 mkdir guard-try && cd guard-try
 npm init -y >/dev/null    # makes this directory the npm project root (see note below)
-curl -LO https://github.com/ORIMUSU/ground-immune-guard/releases/download/v0.1.0-preview.3/ground-immune-guard-0.1.0-preview.3.tgz
-# Compare with SHA256SUMS / the release notes. macOS: shasum -a 256 …
-echo "8b8e0ce3a546f623be88e69d857402d4c7cc2e68596b51cffd58e021c975067d  ground-immune-guard-0.1.0-preview.3.tgz" | sha256sum -c -
-npm install --offline --ignore-scripts ./ground-immune-guard-0.1.0-preview.3.tgz
+curl -LO https://github.com/ORIMUSU/ground-immune-guard/releases/download/v0.1.0-preview.4/ground-immune-guard-0.1.0-preview.4.tgz
+echo "6bdc758c1059b2e530393e9f9a61706bbb097410ab88afb80adde55668e88168  ground-immune-guard-0.1.0-preview.4.tgz" | sha256sum -c -
+# macOS: same line with "shasum -a 256 -c -" instead of "sha256sum -c -"
+# Windows PowerShell: (Get-FileHash -Algorithm SHA256 .\ground-immune-guard-0.1.0-preview.4.tgz).Hash
+npm install --offline --ignore-scripts ./ground-immune-guard-0.1.0-preview.4.tgz
 
+./node_modules/.bin/guard --version                      # 0.1.0-preview.4
 ./node_modules/.bin/guard init ./blocking --limited      # local simulated Broker, no credential
 ./node_modules/.bin/guard protect ./blocking allowed     # ADMITTED  -> executes once           (exit 0)
 ./node_modules/.bin/guard protect ./blocking allowed     # replay    -> UNRESOLVED / DECISION_REUSED (exit 4)
@@ -72,11 +74,11 @@ npm install --offline --ignore-scripts ./ground-immune-guard-0.1.0-preview.3.tgz
 ./node_modules/.bin/guard verify ./blocking
 ```
 
-Until preview.3 is published, the last frozen runtime is `0.1.0-preview.2` (SHA-256 `7b8b6bb7a2409e12cf2d7396089e059f728bd4b94a9dd5186aafef4f1d8bb99d`). That tarball still embeds the earlier PolyForm Free Trial license text. Do not treat it as the Apache-2.0 package.
+On Windows, use `.\node_modules\.bin\guard.cmd` instead of `./node_modules/.bin/guard`. If a command fails unexpectedly, run it again with the environment variable `GUARD_DEBUG=1`: the underlying error (`code`, `syscall`, redacted message) is written to stderr; stdout, verdicts and exit codes do not change.
 
 Then try the default observe-only mode: `./node_modules/.bin/guard init ./shadow` and the same `protect` calls against `./shadow` — the decisions are reported with `outcome: OBSERVED`, nothing executes, and every verdict exits 0 (add `--fail-on-verdict` to get 3/4 in SHADOW, e.g. for a CI check). Output formats, `status` and exit codes are explained in [docs/EXPLAIN.md](docs/EXPLAIN.md).
 
-To see post-admission substitution stopped by preview Broker binding, copy `examples/tamper-after-approval.mjs` into the same project and run `node tamper-after-approval.mjs` (LIMITED_BLOCKING only; default SHADOW does not exercise this path).
+To see post-admission substitution stopped by preview Broker binding, run `node node_modules/@ground/immune-guard/examples/tamper-after-approval.mjs` in the same project (LIMITED_BLOCKING only; default SHADOW does not exercise this path).
 
 > **Why `npm init -y`?** Without a `package.json` in the current directory, npm installs into the nearest parent directory that has a `package.json` or `node_modules`. `./node_modules/.bin/guard` is then missing (exit 127). To add Guard to an existing project instead, run the `npm install` line from that project's root.
 
@@ -115,13 +117,13 @@ This Technical Preview is licensed under the **Apache License, Version 2.0**. Se
 - You may use, modify, and redistribute the Work under the terms of Apache-2.0, including for commercial purposes.
 - A patent license is included, subject to the patent-retaliation clause in the License.
 - There is no evaluation-period limit and no "not open source" restriction in this license.
-- This repository does not currently include the original TypeScript sources of the installable package; the package ships readable ESM in `dist/` inside the release tarball. Third-party components remain under their own terms; see `THIRD-PARTY-NOTICES.txt`.
+- This git repository does not include the TypeScript sources of the installable package; the release tarball contains them alongside the readable ESM build in `dist/`. Third-party components remain under their own terms; see `THIRD-PARTY-NOTICES.txt`.
 
 The approved preview distribution route is a public GitHub repository plus a GitHub Release containing the frozen tarball. npm registry publication is not part of this preview. Integrity is published through `SHA256SUMS` and `sbom.json`; the preview is **not cryptographically signed or attested**.
 
 ## What this repository contains
 
-This repository contains reviewed documentation, examples, packaging scripts and community files. Installable tarballs are attached to GitHub Releases (see `https://github.com/ORIMUSU/ground-immune-guard/releases` once published) and their SHA-256 digests are listed in `SHA256SUMS`. It contains no history or source from the private development repository, no private host evidence and no deployment credentials.
+This repository contains reviewed documentation, examples, packaging scripts and community files. Installable tarballs are attached to [GitHub Releases](https://github.com/ORIMUSU/ground-immune-guard/releases) and their SHA-256 digests are listed in `SHA256SUMS`. It contains no history or source from the private development repository, no private host evidence and no deployment credentials.
 
 See [Verification](docs/VERIFICATION.md), [Architecture](docs/ARCHITECTURE.md), [Changelog](CHANGELOG.md), `release-manifest.json`, `SHA256SUMS` and `sbom.json`.
 

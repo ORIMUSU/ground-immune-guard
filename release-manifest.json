@@ -13,9 +13,10 @@
   "brokerIncluded": false,
   "productionQualified": false,
   "notes": [
-    "This manifest describes the clean Apache-2.0 repository being prepared for publication. The 0.1.0-preview.3 tarball is not yet built.",
-    "Historical preview.1 and preview.2 tarballs were published under PolyForm Free Trial 1.0.0. Their bytes and SHA-256 values are unchanged and are recorded below. sbom.json remains the inventory of 0.1.0-preview.2.",
-    "The previous public repository location may be retired when this tree is published; identify those artifacts by SHA-256."
+    "This manifest describes the public Apache-2.0 repository and its GitHub Release tarballs. The current package is 0.1.0-preview.4.",
+    "Historical preview.1 and preview.2 tarballs were published under PolyForm Free Trial 1.0.0. Their bytes and SHA-256 values are unchanged and are recorded below.",
+    "sbom.json is the inventory of 0.1.0-preview.4 (copied unchanged from the tarball).",
+    "sourceExportIncluded refers to this git repository. From 0.1.0-preview.3 the release tarball itself contains the TypeScript sources of the Guard surface and admission kernel."
   ],
   "releases": [
     {
@@ -50,12 +51,32 @@
     {
       "version": "0.1.0-preview.3",
       "releaseTag": "v0.1.0-preview.3",
-      "status": "NOT_BUILT",
       "preRelease": true,
+      "releasedAt": "2026-11-11T11:43:38Z",
       "artifact": "ground-immune-guard-0.1.0-preview.3.tgz",
       "artifactSha256": "8b8e0ce3a546f623be88e69d857402d4c7cc2e68596b51cffd58e021c975067d",
+      "artifactBytes": 827735,
       "licenseAtRelease": "Apache-2.0",
-      "notes": "Packaging is a separate task. Replace the SHA-256 placeholder only after the tarball is built and validated."
+      "knownIssue": "Windows: every guard protect returns UNRESOLVED/GUARD_UNAVAILABLE (directory fsync EPERM). Fixed in 0.1.0-preview.4.",
+      "supersededBy": "0.1.0-preview.4"
+    },
+    {
+      "version": "0.1.0-preview.4",
+      "releaseTag": "v0.1.0-preview.4",
+      "preRelease": true,
+      "releasedAt": "2026-11-12",
+      "artifact": "ground-immune-guard-0.1.0-preview.4.tgz",
+      "artifactSha256": "6bdc758c1059b2e530393e9f9a61706bbb097410ab88afb80adde55668e88168",
+      "artifactBytes": 832165,
+      "licenseAtRelease": "Apache-2.0",
+      "derivedFrom": "0.1.0-preview.3 source tree",
+      "runtimeChange": "file evidence store: on win32 the post-rename directory fsync is skipped when it fails with EISDIR/EPERM/EACCES/EINVAL; other platforms unchanged. CLI: GUARD_DEBUG=1 stderr diagnostics. Added packaging/test-windows-evidence.mjs.",
+      "verifiedPlatforms": [
+        "Linux x86_64 (Node 22.23.4, 24.22.1)",
+        "Windows 11 (Node 24.14.0)",
+        "macOS 26.6.2 arm64 / Apple Silicon (Node 24.15.0)"
+      ],
+      "validation": "validation-preview.4.json"
     }
   ]
 }

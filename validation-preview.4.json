@@ -1,0 +1,33 @@
+{
+  "validationDate": "2026-11-12",
+  "validatedBy": "maintainer",
+  "artifact": "ground-immune-guard-0.1.0-preview.4.tgz",
+  "artifactSha256": "6bdc758c1059b2e530393e9f9a61706bbb097410ab88afb80adde55668e88168",
+  "artifactBytes": 832165,
+  "scope": "Consumer CLI sequence, bundled examples and bundled regression test on three operating systems, using these exact tarball bytes installed offline with --ignore-scripts in a fresh directory. No physical, real-credential, GitHub write or production run.",
+  "environments": [
+    { "os": "Linux x86_64", "node": "v22.23.4", "npm": "10.9.9" },
+    { "os": "Linux x86_64", "node": "v24.22.1", "npm": "11.21.1" },
+    { "os": "Windows 11", "node": "v24.14.0", "cli": ".\\node_modules\\.bin\\guard.cmd" },
+    { "os": "macOS 26.6.2 arm64 (Apple Silicon)", "node": "v24.15.0", "npm": "11.12.1" }
+  ],
+  "checks": [
+    "SHA-256 of the installed tarball equals artifactSha256",
+    "npm install --offline --ignore-scripts exit 0",
+    "guard --version prints 0.1.0-preview.4",
+    "LIMITED_BLOCKING: allowed ADMITTED/AUTHORIZED/SUCCEEDED exit 0; replay UNRESOLVED/DECISION_REUSED exit 4; denied DENIED/OUT_OF_SCOPE exit 3; unresolved UNRESOLVED/EVIDENCE_MISSING exit 4",
+    "status UNRESOLVED after the sequence; verify exit 0 with count 5",
+    "SHADOW: allowed and denied exit 0 with execution.outcome OBSERVED",
+    "packaging/test-windows-evidence.mjs: all checks passed",
+    "examples/first-operation.mjs and examples/tamper-after-approval.mjs output matched (tamper: UNRESOLVED/TARGET_CHANGED, 0 simulated executions)",
+    "with GUARD_DEBUG=1 set, no 'guard debug:' line on the normal sequence"
+  ],
+  "result": "PASS on all listed environments",
+  "control": "On Windows 11, 0.1.0-preview.3 returned UNRESOLVED/GUARD_UNAVAILABLE for every guard protect (directory fsync EPERM in the file evidence store). That failure is the reason for this release.",
+  "notTested": [
+    "macOS on Intel",
+    "Windows on ARM",
+    "Node < 22.23 on Windows and macOS",
+    "npx guard form"
+  ]
+}
